@@ -28,7 +28,7 @@ When('I make request to endpoint {string} with method {string} and expect respon
       },
     });
   }).then((response) => {
-    expect(response).property('status').to.equal(status);
+    expect(response).property('status').to.equal(parseInt(status, 10));
     cy.task('setValue', { key: `body_${endpoint}`, value: response.body });
   });
 });
