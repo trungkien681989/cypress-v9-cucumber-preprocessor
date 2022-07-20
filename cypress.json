@@ -1,0 +1,52 @@
+{
+  "projectId": "",
+  "defaultCommandTimeout": 10000,
+  "pageLoadTimeout": 60000,
+  "viewportWidth": 1440,
+  "viewportHeight": 900,
+  "watchForFileChanges": true,
+  "testFiles": ["**/*.{feature,features}"],
+  "downloadsFolder": "cypress/downloads",
+  "fixturesFolder": "cypress/fixtures",
+  "integrationFolder": "cypress/integration",
+  "screenshotsFolder": "cypress/screenshots",
+  "videosFolder": "cypress/videos",
+  "supportFile": "cypress/support/index.js",
+  "reporter": "cypress-mochawesome-reporter",
+  "reporterOptions": {
+    "files": [
+      "cypress/reports/*.json"
+    ],
+    "charts": true,
+    "embeddedScreenshots": true,
+    "saveAllAttempts": false,
+    "showPassed": true,
+    "showFailed": true,
+    "showSkipped": true,
+    "overwrite": false,
+    "html": false,
+    "json": true,
+    "reportTitle": "Cypress Cucumber"
+  },
+  "screenshotOnRunFailure": true,
+  "trashAssetsBeforeRuns": true,
+  "chromeWebSecurity": false,
+  "redirectionLimit": 40,
+  "waitForAnimations": true,
+  "scrollBehavior": "center",
+  "video": false,
+  "hideXHR": false,
+  "blockHosts": [],
+  "numTestsKeptInMemory": 5,
+  "env": {
+    "ENV": "PROD",
+    "baseURL": "https://juice-shop.guardrails.ai",
+    "extraSmallWait": 500,
+    "smallWait": 2500,
+    "longWait": 7500
+  },
+  "retries": {
+    "runMode": 1,
+    "openMode": 0
+  }
+}
