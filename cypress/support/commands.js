@@ -149,7 +149,7 @@ Cypress.Commands.add('getValidBearerToken', () => {
       method: 'POST',
       url: `${Cypress.env('baseURL')}/rest/user/login`,
       headers: { 'content-type': 'application/json' },
-      body: { email: `'${users.valid-user.email}'`, password: `'${users.valid-user.password}'` },
+      body: { email: `${users.valid.email}`, password: `${users.valid.password}` },
     }).then((response) => {
       cy.task('setValue', {
         key: 'bearerToken',
