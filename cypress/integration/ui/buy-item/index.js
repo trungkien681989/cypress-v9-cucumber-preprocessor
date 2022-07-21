@@ -38,3 +38,25 @@ Then('I expect one product that added to the basket has correct info', () => {
     .invoke('text')
     .should('include', productPrice);
 });
+
+When('I add a new address', () => {
+  cy.get(elementStore['Add New Address Button']).first().should('be.visible').click();
+  cy.fixture('address').then((address) => {
+    cy.get(elementStore['New Address Country Input']).first().should('be.visible').clear()
+      .type(address.country);
+    cy.get(elementStore['New Address Name Input']).first().should('be.visible').clear()
+      .type(address.name);
+    cy.get(elementStore['New Address Mobile Input']).first().should('be.visible').clear()
+      .type(address.mobile);
+    cy.get(elementStore['New Address Zip Code Input']).first().should('be.visible').clear()
+      .type(address.zip);
+    cy.get(elementStore['New Address Input']).first().should('be.visible').clear()
+      .type(address.address);
+    cy.get(elementStore['New Address City Input']).first().should('be.visible').clear()
+      .type(address.city);
+    cy.get(elementStore['New Address State Input']).first().should('be.visible').clear()
+      .type(address.state);
+  });
+  cy.get(elementStore['New Address Submit Button']).first().should('be.visible').click();
+  cy.get(elementStore['New Address Submit Button']).first().should('not.exist');
+});

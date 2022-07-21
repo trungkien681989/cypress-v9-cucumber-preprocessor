@@ -30,6 +30,21 @@ export const itemsPerPage = 'div[class*="paginator-page-size-label"]';
 ========================================================================= */
 export const checkoutButton = 'button#checkoutButton';
 
+/* ADDRESS
+========================================================================= */
+export const addNewAddressButton = 'button[aria-label="Add a new address"]';
+
+/* NEW ADDRESS FORM
+========================================================================= */
+export const newAddressCountryInput = 'input[data-placeholder="Please provide a country."]';
+export const newAddressNameInput = 'input[data-placeholder="Please provide a name."]';
+export const newAddressMobileInput = 'input[data-placeholder="Please provide a mobile number."]';
+export const newAddressZipCodeInput = 'input[data-placeholder="Please provide a ZIP code."]';
+export const newAddressInput = 'textarea[data-placeholder="Please provide an address."]';
+export const newAddressCityInput = 'input[data-placeholder="Please provide a city."]';
+export const newAddressStateInput = 'input[data-placeholder="Please provide a state."]';
+export const newAddressSubmitButton = 'button#submitButton';
+
 export const elementStore = {
   // POPUPS
   'Close Welcome Banner Button': closeWelcomeBannerButton,
@@ -54,4 +69,17 @@ export const elementStore = {
 
   // BASKET
   'Checkout Button': checkoutButton,
+
+  // ADDRESS
+  'Add New Address Button': addNewAddressButton,
+
+  // NEW ADDRESS FORM
+  'New Address Country Input': newAddressCountryInput,
+  'New Address Name Input': newAddressNameInput,
+  'New Address Mobile Input': newAddressMobileInput,
+  'New Address Zip Code Input': newAddressZipCodeInput,
+  'New Address Input': newAddressInput,
+  'New Address City Input': newAddressCityInput,
+  'New Address State Input': newAddressStateInput,
+  'New Address Submit Button': newAddressSubmitButton,
 };
