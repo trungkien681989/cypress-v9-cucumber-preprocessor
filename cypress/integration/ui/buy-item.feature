@@ -14,4 +14,13 @@ Feature: Buy products
     Then I expect one product that added to the basket has correct info
     And I click the "Checkout Button"
     And I add a new address
-    And I clean up data
+    And I clean up data of one product
+
+  @regression
+  Scenario: Buying two products
+    When I add two products to the basket
+    And I click the "Your Basket Button"
+    Then I expect two products that added to the basket has correct info
+    And I click the "Checkout Button"
+    And I add a new address
+    And I clean up data of two products
