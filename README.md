@@ -46,6 +46,17 @@ The steps below will take you all the way through setup and running the tests. Y
 
 ```npm run cypress:regression-api```
 
+## Generate HTML Report
+
+After running your test scenarios, folder 'cypress/cucumber-json' will be generated along with cucumber.json results. Based on these files, you can generate a HTML summary report.
+
+### 1. Generate HTML summary report
+```npm run generate-html-report```
+
+### 2. Open HTML summary report
+Open 'index.html' in folder 'reports/cucumber-htmlreport.html'
+
+<img width="1389" alt="html-summary-report" src="https://user-images.githubusercontent.com/49904115/180266752-1b055f00-28f5-481b-952e-3475ed3a0fb9.png">
 
 ## Help!
 **If you get stuck, here is more help:**
