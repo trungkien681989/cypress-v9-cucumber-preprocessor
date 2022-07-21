@@ -9,3 +9,4 @@ Feature: Buy products
 
   @smoke @regression
   Scenario: Buying one product
+  When I add one product to the basket

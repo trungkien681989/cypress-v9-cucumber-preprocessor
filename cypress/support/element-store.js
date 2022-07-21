@@ -20,6 +20,7 @@ export const navBarLoginButton = 'button#navbarLoginButton';
 
 /* ALL PRODUCTS
 ========================================================================= */
+export const addToBasketButton = 'button[aria-label="Add to Basket"]';
 export const itemsPerPage = 'div[class*="paginator-page-size-label"]';
 
 export const elementStore = {
@@ -38,5 +39,6 @@ export const elementStore = {
   'Nav Bar Login Button': navBarLoginButton,
 
   // ALL PRODUCTS
+  'Add To Basket Button': addToBasketButton,
   'Items Per Page': itemsPerPage,
 };
