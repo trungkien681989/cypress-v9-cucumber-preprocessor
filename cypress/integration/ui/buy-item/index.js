@@ -3,6 +3,8 @@ import { elementStore } from '../../../support/element-store';
 
 let productName;
 let productPrice;
+let addressId;
+let itemBasketId;
 
 When('I add one product to the basket', () => {
   cy.intercept('GET', '**/rest/basket/**').as('basket');
@@ -20,6 +22,7 @@ When('I add one product to the basket', () => {
   cy.wait('@basket').then((interception) => {
     expect(interception.response.body.status).to.include('success');
     expect(interception.response.body.data.Products.length).to.eq(1);
+    itemBasketId = interception.response.body.data.Products[0].BasketItem.id;
   });
 });
 
@@ -57,6 +60,36 @@ When('I add a new address', () => {
     cy.get(elementStore['New Address State Input']).first().should('be.visible').clear()
       .type(address.state);
   });
+  cy.intercept('POST', '**/api/Addresss/**').as('createNewAddress');
   cy.get(elementStore['New Address Submit Button']).first().should('be.visible').click();
+  cy.wait('@createNewAddress').then((interception) => {
+    expect(interception.response.statusCode).to.equals(201);
+    expect(interception.response.body.status).to.include('success');
+    addressId = interception.response.body.data.id;
+  });
   cy.get(elementStore['New Address Submit Button']).first().should('not.exist');
+});
+
+When('I clean up data', () => {
+  cy.getValidBearerToken();
+  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
+    cy.request({
+      method: 'DELETE',
+      url: `${Cypress.env('baseURL')}/api/Addresss/${addressId}`,
+      headers: { Authorization: `Bearer ${bearerTokenValue}` },
+    });
+  }).then((response) => {
+    expect(response).property('status').to.equal(200);
+    expect(response.body.status).to.equal('success');
+  });
+  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
+    cy.request({
+      method: 'DELETE',
+      url: `${Cypress.env('baseURL')}/api/BasketItems/${itemBasketId}`,
+      headers: { Authorization: `Bearer ${bearerTokenValue}` },
+    });
+  }).then((response) => {
+    expect(response).property('status').to.equal(200);
+    expect(response.body.status).to.equal('success');
+  });
 });
