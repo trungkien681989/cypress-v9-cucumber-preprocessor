@@ -70,7 +70,6 @@ When('I add a new address', () => {
     expect(interception.response.body.status).to.include('success');
     addressId = interception.response.body.data.id;
   });
-  cy.get(elementStore['New Address Submit Button']).first().should('not.exist');
 });
 
 When('I clean up data of one product', () => {
