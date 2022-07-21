@@ -15,6 +15,8 @@ export const loginButton = 'button#loginButton';
 /* HEADER
 ========================================================================= */
 export const backToHomePageButton = 'button[aria-label="Back to homepage"]';
+export const searchButton = 'mat-icon[class*="mat-search_icon-search"]';
+export const searchInput = 'input#mat-input-0';
 export const navBarAccountButton = 'button#navbarAccount';
 export const navBarLoginButton = 'button#navbarLoginButton';
 export const yourBasketButton = 'button[aria-label="Show the shopping cart"]';
@@ -25,6 +27,10 @@ export const itemNameText = 'div.item-name';
 export const itemPriceText = 'div.item-price span';
 export const addToBasketButton = 'button[aria-label="Add to Basket"]';
 export const itemsPerPage = 'div[class*="paginator-page-size-label"]';
+
+/* SEARCH RESULTS
+========================================================================= */
+export const searchValueText = 'span#searchValue';
 
 /* BASKET
 ========================================================================= */
@@ -57,6 +63,8 @@ export const elementStore = {
 
   // HEADER
   'Back To Home Page Button': backToHomePageButton,
+  'Search Button': searchButton,
+  'Search Input': searchInput,
   'Nav Bar Account Button': navBarAccountButton,
   'Nav Bar Login Button': navBarLoginButton,
   'Your Basket Button': yourBasketButton,
@@ -66,6 +74,9 @@ export const elementStore = {
   'Item Price Text': itemPriceText,
   'Add To Basket Button': addToBasketButton,
   'Items Per Page': itemsPerPage,
+
+  // SEARCH RESULTS
+  'Search Value Text': searchValueText,
 
   // BASKET
   'Checkout Button': checkoutButton,
