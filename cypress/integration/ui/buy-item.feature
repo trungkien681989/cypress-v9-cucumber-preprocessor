@@ -14,6 +14,7 @@ Feature: Buy products
     Then I expect one product that added to the basket has correct info
     And I click the "Checkout Button"
     And I add a new address
+    Then I expect the newly added address has correct info
     And I clean up data of one product
 
   @regression
@@ -23,4 +24,5 @@ Feature: Buy products
     Then I expect two products that added to the basket has correct info
     And I click the "Checkout Button"
     And I add a new address
+    Then I expect the newly added address has correct info
     And I clean up data of two products

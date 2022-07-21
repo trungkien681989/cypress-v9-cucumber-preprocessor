@@ -72,6 +72,20 @@ When('I add a new address', () => {
   });
 });
 
+Then('I expect the newly added address has correct info', () => {
+  cy.fixture('address').then((address) => {
+    cy.get('app-address mat-row').first().find('mat-cell').eq(1)
+      .invoke('text')
+      .should('contain', address.name);
+    cy.get('app-address mat-row').first().find('mat-cell').eq(2)
+      .invoke('text')
+      .should('include', `${address.address}, ${address.city}, ${address.state}, ${address.zip}`);
+    cy.get('app-address mat-row').first().find('mat-cell').eq(3)
+      .invoke('text')
+      .should('include', address.country);
+  });
+});
+
 When('I clean up data of one product', () => {
   cy.getValidBearerToken();
   cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
