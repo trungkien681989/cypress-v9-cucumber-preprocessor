@@ -6,7 +6,7 @@ Feature: Search products
   Background: Open the OWASP Juice Shop
     Given I am on the OWASP Juice Shop home page
 
-  @smoke
+  @smoke @regression
   Scenario: Search for a product
     When I click the "Search Button"
     And I search for "Apple"
