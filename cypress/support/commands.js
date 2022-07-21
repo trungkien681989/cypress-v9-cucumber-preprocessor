@@ -26,6 +26,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { elementStore } from './element-store';
+
 Cypress.Commands.overwrite('type', (originalFn, element, text, options) => {
   if (options && options.sensitive) {
     // turn off original log
@@ -128,14 +130,14 @@ Cypress.Commands.add('clickSpan',
  * @memberOf cy
  * @method login
  * @param {string} email
+ * @param {string} password
  * @returns Chainable
  */
-Cypress.Commands.add('login', (email) => {
-  cy.fixture('user').then((password) => {
-    cy.get('input#email').clear().type(email, { log: true });
-    cy.get('input#password').clear().type(email[password], { sensitive: true });
-  });
-  cy.get('button#loginButton').should('be.enabled').click();
+Cypress.Commands.add('login', (email, password) => {
+  cy.get(elementStore['Email Text']).should('be.visible').clear().type(email, { log: true });
+  cy.get(elementStore['Password Text']).should('be.visible').clear().type(password, { sensitive: true });
+  cy.get(elementStore['Login Button']).should('be.enabled').click();
+  cy.get(elementStore['Login Button']).should('not.exist');
 });
 
 /**
