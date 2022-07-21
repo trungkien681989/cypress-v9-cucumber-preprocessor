@@ -1,4 +1,13 @@
 @api
-Feature: Create automation test for API endpoint
-  As a Software Test Engineer, when I make a RESTful request from the api
-  I expect to gain a successful response.
+Feature: Add and Delete items from basket using api
+  As a Software Test Engineer, when I add and delete items from basket using api
+  I expect to gain successful responses
+
+  Background: Generate a valid bearer token
+    Given I call login endpoint to generate a valid bearer token
+    And I search items to add to the basket
+
+  @smoke
+  Scenario: Add one item to the basket
+    When I add one item to the basket
+    Then I expect one item was added to the basket

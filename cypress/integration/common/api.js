@@ -1,7 +1,11 @@
-import { When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When } from 'cypress-cucumber-preprocessor/steps';
 import Ajv from 'ajv';
 
 const ajv = new Ajv({ allErrors: true });
+
+Given('I call login endpoint to generate a valid bearer token', () => {
+  cy.getValidBearerToken();
+});
 
 When('I validate schema {string} of {string} endpoint', (api, endpoint) => {
   cy.task('getValue', { key: `body_${api}` }).then((response) => {
@@ -18,7 +22,6 @@ When('I validate schema {string} of {string} endpoint', (api, endpoint) => {
 });
 
 When('I make request to endpoint {string} with method {string} and expect response status code is {string}', (endpoint, method, status) => {
-  cy.getValidBearerToken();
   cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
     cy.request({
       method: `${method}`,

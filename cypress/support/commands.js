@@ -156,6 +156,10 @@ Cypress.Commands.add('getValidBearerToken', () => {
         value: response.body.authentication.token,
       });
       cy.task('setValue', {
+        key: 'basketId',
+        value: response.body.authentication.bid,
+      });
+      cy.task('setValue', {
         key: 'responseCode',
         value: response.status,
       });
