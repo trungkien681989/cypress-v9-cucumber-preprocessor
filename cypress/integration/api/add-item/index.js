@@ -58,7 +58,7 @@ When('I add one item to the basket', () => {
   });
 });
 
-Then('I expect one item was added to the basket', () => {
+Then('I expect one item is added to the basket', () => {
   cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
     cy.task('getValue', { key: 'basketId' }).then((basketIdValue) => {
       cy.request({
@@ -94,7 +94,7 @@ When('I add two items to the basket', () => {
   });
 });
 
-Then('I expect two items was added to the basket', () => {
+Then('I expect two items are added to the basket', () => {
   cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
     cy.task('getValue', { key: 'basketId' }).then((basketIdValue) => {
       cy.request({
@@ -133,5 +133,32 @@ When('I delete two items from the basket', () => {
   });
   cy.task('getValue', { key: 'secondItemBasketId' }).then((secondItemBasketIdValue) => {
     deleteItemFromBasket(secondItemBasketIdValue);
+  });
+});
+
+When('I delete one remaining item from the basket', () => {
+  cy.task('getValue', { key: 'secondItemBasketId' }).then((secondItemBasketIdValue) => {
+    deleteItemFromBasket(secondItemBasketIdValue);
+  });
+});
+
+Then('I expect one item is remain in the basket', () => {
+  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
+    cy.task('getValue', { key: 'basketId' }).then((basketIdValue) => {
+      cy.request({
+        method: 'GET',
+        url: `${Cypress.env('baseURL')}/rest/basket/${basketIdValue}`,
+        headers: { Authorization: `Bearer ${bearerTokenValue}` },
+      });
+    });
+  }).then((response) => {
+    expect(response).property('status').to.equal(200);
+    expect(response.body.data.Products.length).to.equal(1);
+    cy.task('getValue', { key: 'secondItemId' }).then((secondItemIdValue) => {
+      expect(response.body.data.Products[0].id).to.equal(secondItemIdValue);
+    });
+    cy.task('getValue', { key: 'secondItemName' }).then((secondItemNameValue) => {
+      expect(response.body.data.Products[0].name).to.equal(secondItemNameValue);
+    });
   });
 });
