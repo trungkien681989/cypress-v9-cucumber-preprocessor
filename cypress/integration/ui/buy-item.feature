@@ -9,4 +9,7 @@ Feature: Buy products
 
   @smoke @regression
   Scenario: Buying one product
-  When I add one product to the basket
+    When I add one product to the basket
+    And I click the "Your Basket Button"
+    Then I expect one product that added to the basket has correct info
+    And I click the "Checkout Button"
