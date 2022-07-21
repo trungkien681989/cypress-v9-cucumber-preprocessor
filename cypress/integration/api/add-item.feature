@@ -11,3 +11,8 @@ Feature: Add and Delete items from basket using api
   Scenario: Add one item to the basket
     When I add one item to the basket
     Then I expect one item was added to the basket
+
+  @regression
+  Scenario: Add two items to the basket
+    When I add two items to the basket
+    Then I expect two items was added to the basket
