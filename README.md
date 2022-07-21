@@ -30,7 +30,10 @@ The steps below will take you all the way through setup and running the tests. Y
 ### 1. Open Cypress and select a test to run
 ```npm run cypress:open```
 
-### 2. Run tests based on test type (headless)
+### 2. Run all tests (headless)
+```npm run cypress:run```
+
+### 3. Run tests based on test type (headless)
 ```npm run cypress:smoke-ui```
 
 ```npm run cypress:smoke-api```

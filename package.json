@@ -44,6 +44,7 @@
   },
   "scripts": {
     "cypress:open": "./node_modules/.bin/cypress open",
+    "cypress:run": "./node_modules/.bin/cypress run",
     "cypress:smoke-ui": "./node_modules/.bin/cypress-tags run -e TAGS='@smoke and @ui'",
     "cypress:smoke-api": "./node_modules/.bin/cypress-tags run -e TAGS='@smoke and @api'",
     "cypress:regression-ui": "./node_modules/.bin/cypress-tags run -e TAGS='@regression and @ui'",
