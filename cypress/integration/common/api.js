@@ -9,7 +9,7 @@ Given('I call login endpoint to generate a valid bearer token', () => {
 
 Then('I validate schema of {string} endpoint', (endpoint) => {
   cy.task('getValue', { key: `body_${endpoint}` }).then((response) => {
-    cy.fixture(endpoint.toString().replaceAll('/', '-')).then((schema) => {
+    cy.fixture(`schema/${endpoint.toString().replaceAll('/', '-')}`).then((schema) => {
       const validate = ajv.compile(schema);
       const valid = validate(response);
       if (!valid) {
