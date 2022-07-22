@@ -11,4 +11,5 @@ Feature: Search products
     When I click the "Search Button"
     And I search for "Apple"
     Then I expect search results shows "Apple" products
-    Then I expect search results does not show "Banana" products
+    And I expect search results does not show "Banana" products
+    And I take a snapshot with name is "AppleSearchResults"

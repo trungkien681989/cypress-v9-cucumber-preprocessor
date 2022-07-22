@@ -22,6 +22,10 @@ When('I scroll in the {string}', (element) => {
   cy.get(elementStore[element]).first().should('be.visible').scrollTo(0, 1000, { duration: 1000 }); // down 1000px
 });
 
+When('I take a snapshot with name is {string}', (name) => {
+  cy.percySnapshot(name);
+});
+
 Then('I expect to see the {string} is enabled', (element) => {
   cy.get(elementStore[element]).first().should('be.enabled');
 });

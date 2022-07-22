@@ -46,6 +46,18 @@ The steps below will take you all the way through setup and running the tests. Y
 
 ```npm run cypress:regression-api```
 
+### 4. Run visual tests with percy
+
+You can run visual test with 'percy.io' follows this guide: https://docs.percy.io/docs/cypress
+
+Below is an example of this repo:
+
+```export PERCY_TOKEN=a527c5b46ab5d1b6fe507145147a2e9b4bade97a0b6ffa08a720e38ebd520ca0```
+
+```percy exec -- cypress run```
+
+![percy](https://user-images.githubusercontent.com/49904115/180349604-f563d2f9-96c1-4a68-a700-5d64bd71a082.png)
+
 ## Generate HTML Report
 
 After running your test scenarios, folder 'cypress/cucumber-json' will be generated along with cucumber.json results. Based on these files, you can generate a HTML summary report.
