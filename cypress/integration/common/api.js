@@ -7,6 +7,34 @@ Given('I call login endpoint to generate a valid bearer token', () => {
   cy.getValidBearerToken();
 });
 
+Given('I make sure test data is cleaned up', () => {
+  cy.getValidBearerToken();
+  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
+    cy.task('getValue', { key: 'basketId' }).then((basketIdValue) => {
+      // Get items in basket
+      cy.request({
+        method: 'GET',
+        url: `${Cypress.env('baseURL')}/rest/basket/${basketIdValue}`,
+        headers: { Authorization: `Bearer ${bearerTokenValue}` },
+      }).then((getResponse) => {
+        expect(getResponse).property('status').to.equal(200);
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < getResponse.body.data.Products.length; i++) {
+          // Delete items
+          cy.request({
+            method: 'DELETE',
+            url: `${Cypress.env('baseURL')}/api/BasketItems/${getResponse.body.data.Products[i].BasketItem.id}`,
+            headers: { Authorization: `Bearer ${bearerTokenValue}` },
+          }).then((deleteResponse) => {
+            expect(deleteResponse).property('status').to.equal(200);
+            expect(deleteResponse.body.status).to.equal('success');
+          });
+        }
+      });
+    });
+  });
+});
+
 Then('I validate schema of {string} endpoint', (endpoint) => {
   cy.task('getValue', { key: `body_${endpoint}` }).then((response) => {
     cy.fixture(`schema/${endpoint.toString().replaceAll('/', '-')}`).then((schema) => {

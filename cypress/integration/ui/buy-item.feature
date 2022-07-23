@@ -4,7 +4,8 @@ Feature: Buy products
   As a user of OWASP Juice Shop, I want to buy my selected products
 
   Background: Logged in the OWASP Juice Shop
-    Given I am on the OWASP Juice Shop home page
+    Given I make sure test data is cleaned up
+    And I am on the OWASP Juice Shop home page
     And I login to my account
 
   @smoke @regression

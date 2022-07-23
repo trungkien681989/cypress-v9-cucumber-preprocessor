@@ -4,7 +4,7 @@ Feature: Add and Delete items from basket using api
   I expect to gain successful responses
 
   Background: Generate a valid bearer token
-    Given I call login endpoint to generate a valid bearer token
+    Given I make sure test data is cleaned up
     And I search items to add to the basket
 
   @smoke @regression
