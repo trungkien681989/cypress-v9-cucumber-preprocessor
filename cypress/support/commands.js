@@ -44,6 +44,27 @@ Cypress.Commands.overwrite('type', (originalFn, element, text, options) => {
 
 /**
  * @memberOf cy
+ * @method setValue
+ * @param {string} keyName
+ * @param {string} keyValue
+ * @returns Chainable
+ */
+Cypress.Commands.add('setValue', (keyName, keyValue) => {
+  cy.task('setValue', { key: keyName, value: keyValue });
+});
+
+/**
+ * @memberOf cy
+ * @method getValue
+ * @param {string} keyName
+ * @returns Chainable
+ */
+Cypress.Commands.add('getValue', (keyName) => {
+  cy.task('getValue', { key: keyName }).then((value) => value);
+});
+
+/**
+ * @memberOf cy
  * @method clickButton
  * @param {string} label
  * @returns Chainable
@@ -142,29 +163,16 @@ Cypress.Commands.add('login', (email, password) => {
 
 /**
  * @memberOf cy
- * @method getValidBearerToken
+ * @method authenticate
  * @returns Chainable
  */
-Cypress.Commands.add('getValidBearerToken', () => {
+Cypress.Commands.add('authenticate', () => {
   cy.fixture('user').then((users) => {
     cy.request({
       method: 'POST',
       url: `${Cypress.env('baseURL')}/rest/user/login`,
       headers: { 'content-type': 'application/json' },
       body: { email: `${users.valid.email}`, password: `${users.valid.password}` },
-    }).then((response) => {
-      cy.task('setValue', {
-        key: 'bearerToken',
-        value: response.body.authentication.token,
-      });
-      cy.task('setValue', {
-        key: 'basketId',
-        value: response.body.authentication.bid,
-      });
-      cy.task('setValue', {
-        key: 'responseCode',
-        value: response.status,
-      });
-    });
+    }).then((response) => response.body.authentication);
   });
 });

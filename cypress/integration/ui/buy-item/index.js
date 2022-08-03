@@ -87,26 +87,23 @@ Then('I expect the newly added address has correct info', () => {
 });
 
 When('I clean up data of one product', () => {
-  cy.getValidBearerToken();
-  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
+  cy.authenticate().then((authentication) => {
     cy.request({
       method: 'DELETE',
       url: `${Cypress.env('baseURL')}/api/Addresss/${addressId}`,
-      headers: { Authorization: `Bearer ${bearerTokenValue}` },
+      headers: { Authorization: `Bearer ${authentication.token}` },
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(response.body.status).to.equal('success');
     });
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.status).to.equal('success');
-  });
-  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
     cy.request({
       method: 'DELETE',
       url: `${Cypress.env('baseURL')}/api/BasketItems/${firstItemBasketId}`,
-      headers: { Authorization: `Bearer ${bearerTokenValue}` },
+      headers: { Authorization: `Bearer ${authentication.token}` },
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(response.body.status).to.equal('success');
     });
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.status).to.equal('success');
   });
 });
 
@@ -175,35 +172,30 @@ Then('I expect two products that added to the basket has correct info', () => {
 });
 
 When('I clean up data of two products', () => {
-  cy.getValidBearerToken();
-  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
+  cy.authenticate().then((authentication) => {
     cy.request({
       method: 'DELETE',
       url: `${Cypress.env('baseURL')}/api/Addresss/${addressId}`,
-      headers: { Authorization: `Bearer ${bearerTokenValue}` },
+      headers: { Authorization: `Bearer ${authentication.token}` },
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(response.body.status).to.equal('success');
     });
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.status).to.equal('success');
-  });
-  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
     cy.request({
       method: 'DELETE',
       url: `${Cypress.env('baseURL')}/api/BasketItems/${firstItemBasketId}`,
-      headers: { Authorization: `Bearer ${bearerTokenValue}` },
+      headers: { Authorization: `Bearer ${authentication.token}` },
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(response.body.status).to.equal('success');
     });
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.status).to.equal('success');
-  });
-  cy.task('getValue', { key: 'bearerToken' }).then((bearerTokenValue) => {
     cy.request({
       method: 'DELETE',
       url: `${Cypress.env('baseURL')}/api/BasketItems/${secondItemBasketId}`,
-      headers: { Authorization: `Bearer ${bearerTokenValue}` },
+      headers: { Authorization: `Bearer ${authentication.token}` },
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(response.body.status).to.equal('success');
     });
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.status).to.equal('success');
   });
 });
