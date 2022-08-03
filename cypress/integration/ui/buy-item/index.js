@@ -1,5 +1,5 @@
 import { When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { elementStore } from '../../../support/element-store';
+import * as elements from '../../../support/element-store';
 
 let firstProductName;
 let firstProductPrice;
@@ -11,13 +11,13 @@ let secondItemBasketId;
 
 When('I add one product to the basket', () => {
   cy.intercept('GET', '**/rest/basket/**').as('basket');
-  cy.get(elementStore['Item Name Text']).first().should('be.visible').then(($el) => {
+  cy.get(elements.itemNameText).first().should('be.visible').then(($el) => {
     firstProductName = $el.text();
   });
-  cy.get(elementStore['Item Price Text']).first().should('be.visible').then(($el) => {
+  cy.get(elements.itemPriceText).first().should('be.visible').then(($el) => {
     firstProductPrice = $el.text();
   });
-  cy.get(elementStore['Add To Basket Button']).first().should('be.visible').click();
+  cy.get(elements.addToBasketButton).first().should('be.visible').click();
   cy.wait('@basket').then((interception) => {
     expect(interception.response.body.status).to.include('success');
     expect(interception.response.body.data.Products.length).to.eq(0);
@@ -30,7 +30,7 @@ When('I add one product to the basket', () => {
 });
 
 Then('I expect one product that added to the basket has correct info', () => {
-  cy.get(elementStore['Checkout Button']).first().should('be.visible');
+  cy.get(elements.checkoutButton).first().should('be.visible');
   cy.get('app-basket mat-row').first().find('mat-cell').eq(1)
     .invoke('text')
     .should('equal', firstProductName);
@@ -46,25 +46,25 @@ Then('I expect one product that added to the basket has correct info', () => {
 });
 
 When('I add a new address', () => {
-  cy.get(elementStore['Add New Address Button']).first().should('be.visible').click();
+  cy.get(elements.addNewAddressButton).first().should('be.visible').click();
   cy.fixture('address').then((address) => {
-    cy.get(elementStore['New Address Country Input']).first().should('be.visible').clear()
+    cy.get(elements.newAddressCountryInput).first().should('be.visible').clear()
       .type(address.country);
-    cy.get(elementStore['New Address Name Input']).first().should('be.visible').clear()
+    cy.get(elements.newAddressNameInput).first().should('be.visible').clear()
       .type(address.name);
-    cy.get(elementStore['New Address Mobile Input']).first().should('be.visible').clear()
+    cy.get(elements.newAddressMobileInput).first().should('be.visible').clear()
       .type(address.mobile);
-    cy.get(elementStore['New Address Zip Code Input']).first().should('be.visible').clear()
+    cy.get(elements.newAddressZipCodeInput).first().should('be.visible').clear()
       .type(address.zip);
-    cy.get(elementStore['New Address Input']).first().should('be.visible').clear()
+    cy.get(elements.newAddressInput).first().should('be.visible').clear()
       .type(address.address);
-    cy.get(elementStore['New Address City Input']).first().should('be.visible').clear()
+    cy.get(elements.newAddressCityInput).first().should('be.visible').clear()
       .type(address.city);
-    cy.get(elementStore['New Address State Input']).first().should('be.visible').clear()
+    cy.get(elements.newAddressStateInput).first().should('be.visible').clear()
       .type(address.state);
   });
   cy.intercept('POST', '**/api/Addresss/**').as('createNewAddress');
-  cy.get(elementStore['New Address Submit Button']).first().should('be.visible').click();
+  cy.get(elements.newAddressSubmitButton).first().should('be.visible').click();
   cy.wait('@createNewAddress').then((interception) => {
     expect(interception.response.statusCode).to.equals(201);
     expect(interception.response.body.status).to.include('success');
@@ -109,13 +109,13 @@ When('I clean up data of one product', () => {
 
 When('I add two products to the basket', () => {
   cy.intercept('GET', '**/rest/basket/**').as('basket');
-  cy.get(elementStore['Item Name Text']).first().should('be.visible').then(($el) => {
+  cy.get(elements.itemNameText).first().should('be.visible').then(($el) => {
     firstProductName = $el.text();
   });
-  cy.get(elementStore['Item Price Text']).first().should('be.visible').then(($el) => {
+  cy.get(elements.itemPriceText).first().should('be.visible').then(($el) => {
     firstProductPrice = $el.text();
   });
-  cy.get(elementStore['Add To Basket Button']).first().should('be.visible').click();
+  cy.get(elements.addToBasketButton).first().should('be.visible').click();
   cy.wait('@basket').then((interception) => {
     expect(interception.response.body.status).to.include('success');
     expect(interception.response.body.data.Products.length).to.eq(0);
@@ -125,13 +125,13 @@ When('I add two products to the basket', () => {
     expect(interception.response.body.data.Products.length).to.eq(1);
     firstItemBasketId = interception.response.body.data.Products[0].BasketItem.id;
   });
-  cy.get(elementStore['Item Name Text']).eq(1).should('be.visible').then(($el) => {
+  cy.get(elements.itemNameText).eq(1).should('be.visible').then(($el) => {
     secondProductName = $el.text();
   });
-  cy.get(elementStore['Item Price Text']).eq(1).should('be.visible').then(($el) => {
+  cy.get(elements.itemPriceText).eq(1).should('be.visible').then(($el) => {
     secondProductPrice = $el.text();
   });
-  cy.get(elementStore['Add To Basket Button']).eq(1).should('be.visible').click();
+  cy.get(elements.addToBasketButton).eq(1).should('be.visible').click();
   cy.wait('@basket').then((interception) => {
     expect(interception.response.body.status).to.include('success');
     expect(interception.response.body.data.Products.length).to.eq(1);
@@ -144,7 +144,7 @@ When('I add two products to the basket', () => {
 });
 
 Then('I expect two products that added to the basket has correct info', () => {
-  cy.get(elementStore['Checkout Button']).first().should('be.visible');
+  cy.get(elements.checkoutButton).first().should('be.visible');
   cy.get('app-basket mat-row').first().find('mat-cell').eq(1)
     .invoke('text')
     .should('equal', firstProductName);

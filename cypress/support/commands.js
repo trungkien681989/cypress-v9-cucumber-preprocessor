@@ -27,6 +27,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { elementStore } from './element-store';
+import * as elements from "./element-store";
 
 Cypress.Commands.overwrite('type', (originalFn, element, text, options) => {
   if (options && options.sensitive) {
@@ -175,4 +176,17 @@ Cypress.Commands.add('authenticate', () => {
       body: { email: `${users.valid.email}`, password: `${users.valid.password}` },
     }).then((response) => response.body.authentication);
   });
+});
+
+/**
+ * @memberOf cy
+ * @method openOWASPJuiceShop
+ * @returns Chainable
+ */
+Cypress.Commands.add('openOWASPJuiceShop', () => {
+  cy.visit(Cypress.env('baseURL'));
+  expect(cy.title().should('equal', 'OWASP Juice Shop'));
+  cy.get(elements.closeWelcomeBannerButton).should('be.visible').click();
+  cy.get(elements.dismissCookieMessage).should('be.visible').click();
+  cy.get(elements.itemsPerPage).should('exist');
 });
