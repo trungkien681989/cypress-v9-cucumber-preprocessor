@@ -76,10 +76,12 @@ Then('I expect one item is added to the basket', () => {
 
 When('I add two items to the basket', () => {
   addItemToBasket(firstItemId);
+  // Retrieve first item basket ID to delete in later steps
   cy.getValue('itemBasketId').then((itemBasketId) => {
     firstItemBasketId = itemBasketId;
   });
   addItemToBasket(secondItemId);
+  // Retrieve second item basket ID to delete in later steps
   cy.getValue('itemBasketId').then((itemBasketId) => {
     secondItemBasketId = itemBasketId;
   });
