@@ -6,6 +6,15 @@ The tests are written to verify basic functions of https://juice-shop.guardrails
 
 This project follows suggestions from App Actions approach. Refer link: [Stop using Page Objects and Start using App Actions](https://www.cypress.io/blog/2019/01/03/stop-using-page-objects-and-start-using-app-actions/)
 
+This project apply `cy.intercept` and `cy.wait` to wait for responses thus reduce flake. Refer link: [Flake](https://docs.cypress.io/guides/guides/network-requests#Flake)
+
+This project presents following tests:
+- Testing an API flow in `cypress/integration/api/add-item.feature`
+- API contract testing in `cypress/integration/api/search-items-contract-testing.feature`
+- E2E testing in `cypress/integration/ui/buy-item.feature`
+- Testing UI alternative cases using mock/stub response from API in `cypress/integration/ui/mock-product-search.feature`
+- Visual UI testing with `Percy/Cypress` in `cypress/integration/ui/search-item.feature`
+
 ## Installation
 
 The steps below will take you all the way through setup and running the tests. You will also need to clone the repo and have a basic understanding of [Git](https://en.wikipedia.org/wiki/Git).
