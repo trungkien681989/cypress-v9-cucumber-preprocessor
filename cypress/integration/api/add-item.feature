@@ -3,7 +3,7 @@ Feature: Add and Delete items from basket using api
   As a Software Test Engineer, when I add and delete items from basket using api
   I expect to gain successful responses
 
-  Background: Generate a valid bearer token
+  Background: Search items to add to the basket
     Given I make sure test data is cleaned up
     And I search items to add to the basket
 
@@ -11,13 +11,11 @@ Feature: Add and Delete items from basket using api
   Scenario: Add one item to the basket
     When I add one item to the basket
     Then I expect one item is added to the basket
-    And I delete one item from the basket
 
   @regression
   Scenario: Add two items to the basket
     When I add two items to the basket
     Then I expect two items are added to the basket
-    And I delete two items from the basket
 
   @regression
   Scenario: Add two items to the basket then delete one

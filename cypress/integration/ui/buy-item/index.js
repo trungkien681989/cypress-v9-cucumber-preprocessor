@@ -187,35 +187,3 @@ Then('I expect two products that added to the basket has correct info', () => {
     .invoke('text')
     .should('include', secondProductPrice);
 });
-
-When('I clean up data of two products', () => {
-  cy.authenticate().then((authentication) => {
-    // Delete address
-    cy.request({
-      method: 'DELETE',
-      url: `${Cypress.env('baseURL')}/api/Addresss/${addressId}`,
-      headers: { Authorization: `Bearer ${authentication.token}` },
-    }).then((response) => {
-      expect(response).property('status').to.equal(200);
-      expect(response.body.status).to.equal('success');
-    });
-    // Remove 1st product from basket
-    cy.request({
-      method: 'DELETE',
-      url: `${Cypress.env('baseURL')}/api/BasketItems/${firstItemBasketId}`,
-      headers: { Authorization: `Bearer ${authentication.token}` },
-    }).then((response) => {
-      expect(response).property('status').to.equal(200);
-      expect(response.body.status).to.equal('success');
-    });
-    // Remove 2nd product from basket
-    cy.request({
-      method: 'DELETE',
-      url: `${Cypress.env('baseURL')}/api/BasketItems/${secondItemBasketId}`,
-      headers: { Authorization: `Bearer ${authentication.token}` },
-    }).then((response) => {
-      expect(response).property('status').to.equal(200);
-      expect(response.body.status).to.equal('success');
-    });
-  });
-});

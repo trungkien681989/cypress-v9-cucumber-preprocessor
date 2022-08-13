@@ -10,22 +10,18 @@ let secondItemId;
 let secondItemName;
 
 function addItemToBasket(itemId) {
-  cy.authenticate().then((authentication) => {
-    bearerToken = authentication.token;
-    basketId = authentication.bid;
-    cy.request({
-      method: 'POST',
-      url: `${Cypress.env('baseURL')}/api/BasketItems/`,
-      headers: { Authorization: `Bearer ${bearerToken}` },
-      body: {
-        ProductId: itemId,
-        BasketId: basketId,
-        quantity: 1,
-      },
-    }).then((response) => {
-      expect(response).property('status').to.equal(200);
-      cy.setValue('itemBasketId', response.body.data.id);
-    });
+  cy.request({
+    method: 'POST',
+    url: `${Cypress.env('baseURL')}/api/BasketItems/`,
+    headers: { Authorization: `Bearer ${bearerToken}` },
+    body: {
+      ProductId: itemId,
+      BasketId: basketId,
+      quantity: 1,
+    },
+  }).should(({ status, body }) => {
+    expect(status).to.equal(200);
+    cy.setValue('itemBasketId', body.data.id);
   });
 }
 
@@ -34,23 +30,28 @@ function deleteItemFromBasket(itemBasketIdValue) {
     method: 'DELETE',
     url: `${Cypress.env('baseURL')}/api/BasketItems/${itemBasketIdValue}`,
     headers: { Authorization: `Bearer ${bearerToken}` },
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.status).to.equal('success');
+  }).should(({ status, body }) => {
+    expect(status).to.equal(200);
+    expect(body.status).to.equal('success');
   });
 }
 
 Given('I search items to add to the basket', () => {
-  cy.request({
-    method: 'GET',
-    url: `${Cypress.env('baseURL')}/rest/products/search?q=`,
-    headers: { Authorization: `Bearer ${bearerToken}` },
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    firstItemId = response.body.data[0].id;
-    firstItemName = response.body.data[0].name;
-    secondItemId = response.body.data[1].id;
-    secondItemName = response.body.data[1].name;
+  cy.authenticate().then((authentication) => {
+    bearerToken = authentication.token;
+    basketId = authentication.bid;
+    cy.request({
+      method: 'GET',
+      url: `${Cypress.env('baseURL')}/rest/products/search?q=`,
+      headers: { Authorization: `Bearer ${bearerToken}` },
+    }).should(({ status, body }) => {
+      expect(status).to.equal(200);
+      const { data } = body;
+      firstItemId = data[0].id;
+      firstItemName = data[0].name;
+      secondItemId = data[1].id;
+      secondItemName = data[1].name;
+    });
   });
 });
 
@@ -66,11 +67,12 @@ Then('I expect one item is added to the basket', () => {
     method: 'GET',
     url: `${Cypress.env('baseURL')}/rest/basket/${basketId}`,
     headers: { Authorization: `Bearer ${bearerToken}` },
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.data.Products.length).to.equal(1);
-    expect(response.body.data.Products[0].id).to.equal(firstItemId);
-    expect(response.body.data.Products[0].name).to.equal(firstItemName);
+  }).should(({ status, body }) => {
+    expect(status).to.equal(200);
+    const { Products } = body.data;
+    expect(Products.length).to.equal(1);
+    expect(Products[0].id).to.equal(firstItemId);
+    expect(Products[0].name).to.equal(firstItemName);
   });
 });
 
@@ -92,23 +94,19 @@ Then('I expect two items are added to the basket', () => {
     method: 'GET',
     url: `${Cypress.env('baseURL')}/rest/basket/${basketId}`,
     headers: { Authorization: `Bearer ${bearerToken}` },
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.data.Products.length).to.equal(2);
-    expect(response.body.data.Products[0].id).to.equal(firstItemId);
-    expect(response.body.data.Products[0].name).to.equal(firstItemName);
-    expect(response.body.data.Products[1].id).to.equal(secondItemId);
-    expect(response.body.data.Products[1].name).to.equal(secondItemName);
+  }).should(({ status, body }) => {
+    expect(status).to.equal(200);
+    const { Products } = body.data;
+    expect(Products.length).to.equal(2);
+    expect(Products[0].id).to.equal(firstItemId);
+    expect(Products[0].name).to.equal(firstItemName);
+    expect(Products[1].id).to.equal(secondItemId);
+    expect(Products[1].name).to.equal(secondItemName);
   });
 });
 
 When('I delete one item from the basket', () => {
   deleteItemFromBasket(firstItemBasketId);
-});
-
-When('I delete two items from the basket', () => {
-  deleteItemFromBasket(firstItemBasketId);
-  deleteItemFromBasket(secondItemBasketId);
 });
 
 When('I delete one remaining item from the basket', () => {
@@ -120,10 +118,11 @@ Then('I expect one item is remain in the basket', () => {
     method: 'GET',
     url: `${Cypress.env('baseURL')}/rest/basket/${basketId}`,
     headers: { Authorization: `Bearer ${bearerToken}` },
-  }).then((response) => {
-    expect(response).property('status').to.equal(200);
-    expect(response.body.data.Products.length).to.equal(1);
-    expect(response.body.data.Products[0].id).to.equal(secondItemId);
-    expect(response.body.data.Products[0].name).to.equal(secondItemName);
+  }).should(({ status, body }) => {
+    expect(status).to.equal(200);
+    const { Products } = body.data;
+    expect(Products.length).to.equal(1);
+    expect(Products[0].id).to.equal(secondItemId);
+    expect(Products[0].name).to.equal(secondItemName);
   });
 });
