@@ -4,7 +4,7 @@ This repo contains an example of automation testing written in Cypress v9 and cy
 
 The tests are written to verify basic functions of https://juice-shop.guardrails.ai website.
 
-This project follows suggestions from App Actions approach. Refer link: [Stop using Page Objects and Start using App Actions](https://www.cypress.io/blog/2019/01/03/stop-using-page-objects-and-start-using-app-actions/). It uses `cy.intercept` and `cy.wait` to wait for responses thus reduce flake. Refer link: [Flake](https://docs.cypress.io/guides/guides/network-requests#Flake)
+This project uses `cy.intercept` and `cy.wait` to wait for responses thus reduce flake. Refer link: [Flake](https://docs.cypress.io/guides/guides/network-requests#Flake)
 
 This project presents following tests:
 - Testing an API flow in `cypress/integration/api/add-item.feature`
