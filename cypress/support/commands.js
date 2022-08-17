@@ -66,20 +66,49 @@ Cypress.Commands.add('getValue', (keyName) => {
 
 /**
  * @memberOf cy
+ * @method clickElement
+ * @param {string} selector
+ * @returns Chainable
+ */
+Cypress.Commands.add('clickElement', (selector) => {
+  cy.get(selector).first().should('be.visible').click({ waitForAnimations: true, force: true });
+});
+
+/**
+ * @memberOf cy
+ * @method clearAndType
+ * @param {string} selector
+ * @param {string} value
+ * @returns Chainable
+ */
+Cypress.Commands.add('clearAndType', (selector, value) => {
+  cy.get(selector).first().should('be.visible').clear()
+    .type(value);
+});
+
+/**
+ * @memberOf cy
+ * @method validateText
+ * @param {string} selector
+ * @param {string} value
+ * @returns Chainable
+ */
+Cypress.Commands.add('validateText', (selector, value) => {
+  cy.get(selector).should('be.visible').invoke('text').should('equal', value);
+});
+
+/**
+ * @memberOf cy
  * @method clickButton
  * @param {string} label
  * @returns Chainable
  */
-Cypress.Commands.add('clickButton',
-  (label) => {
-    cy.contains(label)
-      .should('exist');
-    cy.get('button')
-      .contains(label)
-      .should('be.visible')
-      .scrollIntoView()
-      .click({ waitForAnimations: true, force: true });
-  });
+Cypress.Commands.add('clickButton', (label) => {
+  cy.contains(label).should('exist');
+  cy.get('button').contains(label).should('be.visible')
+    .scrollIntoView()
+    .click({ waitForAnimations: true, force: true });
+});
 
 /**
  * @memberOf cy
@@ -87,18 +116,14 @@ Cypress.Commands.add('clickButton',
  * @param {string} label
  * @returns Chainable
  */
-Cypress.Commands.add('clickLinkSameWindow',
-  (label) => {
-    cy.contains(label)
-      .should('exist');
-    cy.get('a')
-      .contains(label)
-      .should('be.visible')
-      .scrollIntoView()
-      .invoke('removeAttr', 'target')
-      .invoke('removeAttr', 'onclick')
-      .click({ waitForAnimations: true, force: true });
-  });
+Cypress.Commands.add('clickLinkSameWindow', (label) => {
+  cy.contains(label).should('exist');
+  cy.get('a').contains(label).should('be.visible')
+    .scrollIntoView()
+    .invoke('removeAttr', 'target')
+    .invoke('removeAttr', 'onclick')
+    .click({ waitForAnimations: true, force: true });
+});
 
 /**
  * @memberOf cy
@@ -106,16 +131,12 @@ Cypress.Commands.add('clickLinkSameWindow',
  * @param {string} label
  * @returns Chainable
  */
-Cypress.Commands.add('clickLink',
-  (label) => {
-    cy.contains(label)
-      .should('exist');
-    cy.get('a')
-      .contains(label)
-      .should('exist')
-      .scrollIntoView()
-      .click({ waitForAnimations: true, force: true });
-  });
+Cypress.Commands.add('clickLink', (label) => {
+  cy.contains(label).should('exist');
+  cy.get('a').contains(label).should('exist')
+    .scrollIntoView()
+    .click({ waitForAnimations: true, force: true });
+});
 
 /**
  * @memberOf cy
@@ -123,13 +144,10 @@ Cypress.Commands.add('clickLink',
  * @param {string} label
  * @returns Chainable
  */
-Cypress.Commands.add('clickLinkButton',
-  (label) => {
-    cy.get(`button[aria-label="${label}"]`)
-      .should('exist')
-      .scrollIntoView()
-      .click({ waitForAnimations: true, force: true });
-  });
+Cypress.Commands.add('clickLinkButton', (label) => {
+  cy.get(`button[aria-label="${label}"]`).should('exist')
+    .scrollIntoView().click({ waitForAnimations: true, force: true });
+});
 
 /**
  * @memberOf cy
@@ -137,16 +155,12 @@ Cypress.Commands.add('clickLinkButton',
  * @param {string} label
  * @returns Chainable
  */
-Cypress.Commands.add('clickSpan',
-  (label) => {
-    cy.contains(label)
-      .should('exist');
-    cy.get('span')
-      .contains(label)
-      .should('exist')
-      .scrollIntoView()
-      .click({ waitForAnimations: true, force: true });
-  });
+Cypress.Commands.add('clickSpan', (label) => {
+  cy.contains(label).should('exist');
+  cy.get('span').contains(label).should('exist')
+    .scrollIntoView()
+    .click({ waitForAnimations: true, force: true });
+});
 
 /**
  * @memberOf cy
@@ -189,67 +203,4 @@ Cypress.Commands.add('openOWASPJuiceShop', () => {
   cy.get(elements.closeWelcomeBannerButton).should('be.visible').click();
   cy.get(elements.dismissCookieMessage).should('be.visible').click();
   cy.get(elements.itemsPerPage).should('exist');
-});
-
-/**
- * @memberOf cy
- * @method cleanupProducts
- * @returns Chainable
- */
-Cypress.Commands.add('cleanupProducts', () => {
-  cy.authenticate().then((authentication) => {
-    // Get items in basket
-    cy.request({
-      method: 'GET',
-      url: `${Cypress.env('baseURL')}/rest/basket/${authentication.bid}`,
-      headers: { Authorization: `Bearer ${authentication.token}` },
-    }).should(({ status, body }) => {
-      expect(status).to.equal(200);
-      const { Products } = body.data;
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < Products.length; i++) {
-        // Delete item
-        cy.request({
-          method: 'DELETE',
-          url: `${Cypress.env('baseURL')}/api/BasketItems/${Products[i].BasketItem.id}`,
-          headers: { Authorization: `Bearer ${authentication.token}` },
-          // eslint-disable-next-line no-shadow
-        }).should(({ status, body }) => {
-          expect(status).to.equal(200);
-          expect(body.status).to.equal('success');
-        });
-      }
-    });
-  });
-});
-
-/**
- * @memberOf cy
- * @method cleanupAddress
- * @returns Chainable
- */
-Cypress.Commands.add('cleanupAddress', () => {
-  cy.authenticate().then((authentication) => {
-    // Get all address
-    cy.request({
-      method: 'GET',
-      url: `${Cypress.env('baseURL')}/api/Addresss`,
-      headers: { Authorization: `Bearer ${authentication.token}` },
-    }).should(({ status, body }) => {
-      expect(status).to.equal(200);
-      const { data } = body;
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < data.length; i++) {
-        // Delete address
-        cy.request({
-          method: 'DELETE',
-          url: `${Cypress.env('baseURL')}/api/Addresss/${data[i].id}`,
-          headers: { Authorization: `Bearer ${authentication.token}` },
-        }).then((response) => {
-          expect(response).property('status').to.equal(200);
-          expect(response.body.status).to.equal('success');
-        });
-      }
-    });
-  });
 });

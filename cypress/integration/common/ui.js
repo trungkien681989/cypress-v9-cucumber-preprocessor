@@ -6,12 +6,11 @@ When('I set viewport to {string}', (option) => {
 });
 
 When('I click the {string}', (element) => {
-  cy.get(elementStore[element]).first().should('be.visible').click();
+  cy.clickElement(elementStore[element]);
 });
 
 When('I enter {string} into the {string}', (text, element) => {
-  cy.get(elementStore[element]).first().should('be.visible').click()
-    .type(text);
+  cy.clearAndType(elementStore[element], text);
 });
 
 When('I select {string} in the {string}', (option, element) => {

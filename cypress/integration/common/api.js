@@ -1,6 +1,10 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import Ajv from 'ajv';
+import AddressUtil from '../utils/addressUtil';
+import ProductUtil from '../utils/productUtil';
 
+const addressUtil = new AddressUtil();
+const productUtil = new ProductUtil();
 const ajv = new Ajv({ allErrors: true });
 let bearerToken;
 let responseBody;
@@ -12,8 +16,8 @@ Given('I call login endpoint to generate a valid bearer token', () => {
 });
 
 Given('I make sure test data is cleaned up', () => {
-  cy.cleanupProducts();
-  cy.cleanupAddress();
+  productUtil.cleanUpProducts();
+  addressUtil.cleanupAddress();
 });
 
 Then('I validate schema of {string} endpoint', (endpoint) => {
