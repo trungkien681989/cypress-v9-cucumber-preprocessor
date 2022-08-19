@@ -1,4 +1,4 @@
-import { Given } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When } from 'cypress-cucumber-preprocessor/steps';
 import * as elements from '../../support/element-store';
 
 Given('I am on the OWASP Juice Shop home page', () => {
@@ -7,7 +7,7 @@ Given('I am on the OWASP Juice Shop home page', () => {
   cy.openOWASPJuiceShop();
 });
 
-Given('I login to my account', () => {
+When('I login to my account', () => {
   cy.get(elements.navBarAccountButton).should('be.visible').click();
   cy.get(elements.navBarLoginButton).should('be.visible').click();
   cy.url().should('include', '/login');

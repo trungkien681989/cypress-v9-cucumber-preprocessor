@@ -11,6 +11,7 @@ export const dismissCookieMessage = 'a[aria-label="dismiss cookie message"]';
 export const emailText = 'input#email';
 export const passwordText = 'input#password';
 export const loginButton = 'button#loginButton';
+export const loginErrorMessage = 'div[class*="error"]';
 
 /* HEADER
 ========================================================================= */
@@ -60,6 +61,7 @@ export const elementStore = {
   'Email Text': emailText,
   'Password Text': passwordText,
   'Login Button': loginButton,
+  'Login Error Message': loginErrorMessage,
 
   // HEADER
   'Back To Home Page Button': backToHomePageButton,

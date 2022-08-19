@@ -11,6 +11,7 @@ This project presents following tests:
 - API contract testing in `cypress/integration/api/search-items-contract-testing.feature`
 - E2E testing in `cypress/integration/ui/buy-item.feature`
 - Testing UI alternative cases using mock/stub response from API in `cypress/integration/ui/mock-product-search.feature`
+- Data driven testing using fixture: `cypress/integration/ui/login.feature`
 - Visual UI testing with `Percy/Cypress` in `cypress/integration/ui/search-item.feature`
 
 ## Installation
