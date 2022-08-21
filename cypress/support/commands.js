@@ -26,8 +26,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-import { elementStore } from './element-store';
-import * as elements from './element-store';
+import { popup, login, allProducts } from './element-store';
 
 Cypress.Commands.overwrite('type', (originalFn, element, text, options) => {
   if (options && options.sensitive) {
@@ -170,10 +169,10 @@ Cypress.Commands.add('clickSpan', (label) => {
  * @returns Chainable
  */
 Cypress.Commands.add('login', (email, password) => {
-  cy.get(elementStore['Email Text']).should('be.visible').clear().type(email, { log: true });
-  cy.get(elementStore['Password Text']).should('be.visible').clear().type(password, { sensitive: true });
-  cy.get(elementStore['Login Button']).should('be.enabled').click();
-  cy.get(elementStore['Login Button']).should('not.exist');
+  cy.get(login.emailInput).should('be.visible').clear().type(email, { log: true });
+  cy.get(login.passwordInput).should('be.visible').clear().type(password, { sensitive: true });
+  cy.get(login.loginButton).should('be.enabled').click();
+  cy.get(login.loginButton).should('not.exist');
 });
 
 /**
@@ -200,7 +199,7 @@ Cypress.Commands.add('authenticate', () => {
 Cypress.Commands.add('openOWASPJuiceShop', () => {
   cy.visit(Cypress.env('baseURL'));
   expect(cy.title().should('equal', 'OWASP Juice Shop'));
-  cy.get(elements.closeWelcomeBannerButton).should('be.visible').click();
-  cy.get(elements.dismissCookieMessage).should('be.visible').click();
-  cy.get(elements.itemsPerPage).should('exist');
+  cy.get(popup.closeWelcomeBannerButton).should('be.visible').click();
+  cy.get(popup.dismissCookieMessage).should('be.visible').click();
+  cy.get(allProducts.itemsPerPage).should('exist');
 });

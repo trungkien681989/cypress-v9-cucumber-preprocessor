@@ -1,14 +1,14 @@
-import * as elements from '../../support/element-store';
+import { newAddress } from '../../support/element-store';
 
 export default class AddressUtil {
   fillAddress(country, name, mobile, zip, address, city, state) {
-    cy.clearAndType(elements.newAddressCountryInput, country);
-    cy.clearAndType(elements.newAddressNameInput, name);
-    cy.clearAndType(elements.newAddressMobileInput, mobile);
-    cy.clearAndType(elements.newAddressZipCodeInput, zip);
-    cy.clearAndType(elements.newAddressInput, address);
-    cy.clearAndType(elements.newAddressCityInput, city);
-    cy.clearAndType(elements.newAddressStateInput, state);
+    cy.clearAndType(newAddress.countryInput, country);
+    cy.clearAndType(newAddress.nameInput, name);
+    cy.clearAndType(newAddress.mobileInput, mobile);
+    cy.clearAndType(newAddress.zipCodeInput, zip);
+    cy.clearAndType(newAddress.addressInput, address);
+    cy.clearAndType(newAddress.cityInput, city);
+    cy.clearAndType(newAddress.stateInput, state);
     return this;
   }
 
