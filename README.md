@@ -6,6 +6,34 @@ The tests are written to verify basic functions of https://juice-shop.guardrails
 
 This project uses `cy.intercept` and `cy.wait` to wait for responses thus reduce flake. Refer link: [Flake](https://docs.cypress.io/guides/guides/network-requests#Flake)
 
+## Project structure
+
+This project follows [cypress structure](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Folder-structure) and [cypress-cucumber-preprocessor structure](https://www.npmjs.com/package/cypress-cucumber-preprocessor#how-to-organize-the-tests). Besides, some key utility files and directories are explained as below:
+
+```
+📦cypress
+ ┣ 📂fixtures
+ ┃ ┣ 📂mock                        ---> store mock response to simulate alternative case of an API (5xx, 4xx, etc.)
+ ┃ ┣ 📂schema                      ---> store schema baseline to validate payload of an API
+ ┃ ┗ 📜<test-data>.json            ---> normal test data for the cy.fixture() method
+ ┣ 📂integration
+ ┃ ┣ 📂common
+ ┃ ┣ 📂ui
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┗ 📜index.js
+ ┃ ┃ ┣ 📜login.feature
+ ┃ ┗ 📂utils                       ---> util functions to make code DRY(er)
+ ┃ ┃ ┣ 📜<util-implement>.js
+ ┣ 📂plugins
+ ┃ ┗ 📜index.js
+ ┣ 📂support
+ ┃ ┣ 📜commands.js
+ ┃ ┣ 📜cucumber-html-report.js     ---> generate report helper
+ ┃ ┣ 📜element-store.js            ---> store all elements locator for cy.get() or cy.xpath() method
+ ┃ ┗ 📜index.js
+ ┗ 📜.eslintrc.json
+```
+
 This project presents following tests:
 - Testing an API flow in `cypress/integration/api/add-item.feature`
 - API contract testing in `cypress/integration/api/search-items-contract-testing.feature`
