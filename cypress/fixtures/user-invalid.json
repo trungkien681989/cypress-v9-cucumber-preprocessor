@@ -1,0 +1,20 @@
+[
+  {
+    "invalid": {
+      "email": "WrongEmail@gmail.com",
+      "password": "PlsDoNotTryToStealMyInfo@gmail.com"
+    }
+  },
+  {
+    "invalid": {
+      "email": "PlsDoNotTryToStealMyInfo@gmail.com",
+      "password": "WrongPassword@gmail.com"
+    }
+  },
+  {
+    "invalid": {
+      "email": "WrongEmail@gmail.com",
+      "password": "WrongPassword@gmail.com"
+    }
+  }
+]

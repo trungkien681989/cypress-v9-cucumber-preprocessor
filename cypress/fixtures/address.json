@@ -1,0 +1,9 @@
+{
+  "country": "USA",
+  "name": "John Doe" ,
+  "mobile": "0901234567",
+  "zip": "700000",
+  "address": "No 1, Awesome Street",
+  "city": "New York",
+  "state": "Washington"
+}

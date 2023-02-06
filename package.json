@@ -1,0 +1,63 @@
+{
+  "name": "cypress-cucumber-preprocessor-app-actions",
+  "description": "QA Automation Engineer Challenge ",
+  "author": "Kien (trungkien681989@gmail.com)",
+  "license": "MIT",
+  "keywords": [
+    "eslint",
+    "cypress"
+  ],
+  "dependencies": {
+    "@cypress/schema-tools": "^4.7.9",
+    "@jc21/cypress-jsonschema-validation": "^0.0.1",
+    "@percy/cypress": "^3.1.1",
+    "ajv": "^6.12.6",
+    "chai-json-schema": "^1.5.1",
+    "cypress": "^9.6.1",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-mochawesome-reporter": "3.0.0",
+    "cypress-tags": "^0.3.0",
+    "cypress-xpath": "^1.6.2",
+    "mochawesome": "7.1.3",
+    "mochawesome-merge": "4.2.1",
+    "node": "^17.7.2",
+    "npm": "^8.2.0",
+    "webpack": "^5.72.1",
+    "ws": "^8.5.0",
+    "yarn": "^1.22.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@babel/preset-env": "^7.18.0",
+    "@percy/cli": "^1.0.0-beta.75",
+    "@percy/storybook": "^4.1.0",
+    "@types/cypress-cucumber-preprocessor": "^4.0.1",
+    "@cucumber/cucumber": "^8.2.1",
+    "@cypress/webpack-preprocessor": "^5.11.1",
+    "babel-loader": "^8.2.5",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-chai-friendly": "^0.7.1",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-import": "^2.23.3",
+    "multiple-cucumber-html-reporter": "^1.20.0"
+  },
+  "scripts": {
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "cypress:run": "./node_modules/.bin/cypress run",
+    "generate-html-report": "node cypress/support/cucumber-html-report.js",
+    "cypress:smoke-ui": "./node_modules/.bin/cypress-tags run -e TAGS='@smoke and @ui'",
+    "cypress:smoke-api": "./node_modules/.bin/cypress-tags run -e TAGS='@smoke and @api'",
+    "cypress:regression-ui": "./node_modules/.bin/cypress-tags run -e TAGS='@regression and @ui'",
+    "cypress:regression-api": "./node_modules/.bin/cypress-tags run -e TAGS='@regression and @api'"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+  }
+}

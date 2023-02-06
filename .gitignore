@@ -1,0 +1,13 @@
+# Folders
+/cypress/reports/
+/cypress/screenshots/
+/cypress/videos/
+/cypress/cucumber-json/
+/node_modules/
+
+# Files
+package-lock.json
+*.html
+*.log
+*.mp4
+*.DS_store
